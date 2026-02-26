@@ -17,10 +17,10 @@ The project works via Meta Quest Link.
 + tempo change
 
 ## Dependencies
-[Supercollider](https://github.com/supercollider/supercollider): you have to manually start the server by evaluating the file unity_synthdefs.scd (ctrl+enter anywhere in the script). The output device could be the VR headset (e.g. Meta Quest 2) or any other stereo output (you may have to set it manually in your OS settings, before starting the server).
+[Supercollider](https://github.com/supercollider/supercollider): you have to manually start the server by evaluating the file unity_synthdefs.scd (ctrl+enter anywhere in the script). The output device could be the VR headset (e.g. Meta Quest 2) or any other stereo output (you may have to set it manually in your OS settings, before starting the server). 
 [ATK for Supercollider](https://github.com/ambisonictoolkit/atk-sc3) and [sc-3 plugins](https://github.com/supercollider/sc3-plugins). 
 
-##TODO
+## TODO
 + saving the session
 + saving/loading midi files
 + recording: now you would have to start it manually from Supercollider or from a DAW
