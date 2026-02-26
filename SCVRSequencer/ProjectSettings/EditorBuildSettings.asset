@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: Assets/Samples/Meta XR Interaction SDK Essentials/69.0.0/UnityXR Integration/Scenes/UnityXRComprehensiveRigExample.unity
+    guid: 1c3839a1070e4a14ab46e590c49bec68
+  - enabled: 1
+    path: Assets/Scenes/MenuPrincipale.unity
+    guid: 856be166019da1341beded1f51d6a1be
+  - enabled: 1
+    path: Assets/Scenes/VRprova.unity
+    guid: 0825d61a2bc066c4880bba8b38acbcb4
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 8d53c3e24cf414b44ba6b10f16fc1788, type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: e1938d57016dfde469a20f0fac044b3a, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 87bf896491b36f24da2d0c270d88cf7c, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 6bd7d6397f0030945b4f35ccb69c4896, type: 2}
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: e3bf4617eef48c74d92cfb3e7d23183c, type: 2}
