@@ -12,19 +12,9 @@ public class MIDIkey : MonoBehaviour
     [SerializeField] Material colorePremuto;
     //[SerializeField] GameObject tastiera; //usato solo dal bottone reset
     public static List<int> tastiPremuti = new List<int>() {};  
-    //[SerializeField] OSCTransmitter transmitter;
+    
     private bool premuto = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void clickSenzaPiano(){ //onclick fa questo se il synth non è /piano
         if (!premuto){
@@ -46,9 +36,6 @@ public class MIDIkey : MonoBehaviour
         }
         else { //es piano - suono in tempo reale
             SCsendValue();
-            /*var message = new OSCMessage(UIGeneral.selectedSynth);
-            message.AddValue(OSCValue.Int(int.Parse(gameObject.name)));
-            transmitter.Send(message);*/
             StartCoroutine(cambioColore(gameObject));
         }
     }

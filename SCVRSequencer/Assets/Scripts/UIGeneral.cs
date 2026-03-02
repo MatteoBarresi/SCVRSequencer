@@ -71,8 +71,8 @@ public class UIGeneral : MonoBehaviour
 
         //premo con mano dx su dropdown--> risulta true anche se sparisce (finché non entro e ri-esco su un UI)--> selezione left non possibile
         //quindi serve questo
-        leftInteractor.GetComponent<ProvaLaser>().selecting = false;
-        rightInteractor.GetComponent<ProvaLaser>().selecting = false;
+        leftInteractor.GetComponent<LaserInteraction>().selecting = false;
+        rightInteractor.GetComponent<LaserInteraction>().selecting = false;
 
         //se lo strumento è in play, mostra soloBtn
         GameManager.instance.GestioneSolo();
@@ -316,10 +316,10 @@ public class UIGeneral : MonoBehaviour
         } 
         
         //entra solo se 1 solo interactor ha selecting == true (xor)
-        if((leftInteractor.GetComponent<ProvaLaser>().selecting ^ 
-            rightInteractor.GetComponent<ProvaLaser>().selecting) 
+        if((leftInteractor.GetComponent<LaserInteraction>().selecting ^ 
+            rightInteractor.GetComponent<LaserInteraction>().selecting) 
             ||
-            (!rightInteractor.GetComponent<ProvaLaser>().selecting && !leftInteractor.GetComponent<ProvaLaser>().selecting) //caso in cui la funzione viene richiamata da codice quanto premo play/stop
+            (!rightInteractor.GetComponent<LaserInteraction>().selecting && !leftInteractor.GetComponent<LaserInteraction>().selecting) //caso in cui la funzione viene richiamata da codice quanto premo play/stop
             )
         {
         //Debug.Log("1 solo hover");
@@ -329,13 +329,13 @@ public class UIGeneral : MonoBehaviour
         //btn.GetComponentInChildren<TextMeshProUGUI>().text è il controllo
         if(btn.GetComponent<Image>().color == Color.white){
             btn.GetComponent<Image>().color = Color.green;
-            if(leftInteractor.GetComponent<ProvaLaser>().selecting)
+            if(leftInteractor.GetComponent<LaserInteraction>().selecting)
             {
                 //Debug.Log("segui la mano sinistra!!!");
                 //keyboard.SetActive(false);
                 StartCoroutine(SCsend(leftInteractor, btn, selectedSynth));
             }
-            else if(rightInteractor.GetComponent<ProvaLaser>().selecting)
+            else if(rightInteractor.GetComponent<LaserInteraction>().selecting)
             {
                 //Debug.Log("segui la mano destra!!!");
                 //keyboard.SetActive(false);
@@ -382,7 +382,7 @@ public class UIGeneral : MonoBehaviour
     IEnumerator cambioColore(Button btn){ //da x a rosso per qualche secondo
         //yield return new WaitForSeconds(1);
         //waitwhile sospende la coroutine finché la condizione non diventa false
-        yield return new WaitWhile(()=> !(leftInteractor.GetComponent<ProvaLaser>().selecting ^ rightInteractor.GetComponent<ProvaLaser>().selecting)); //funzione perché deve essere valutata ogni secondo?
+        yield return new WaitWhile(()=> !(leftInteractor.GetComponent<LaserInteraction>().selecting ^ rightInteractor.GetComponent<LaserInteraction>().selecting)); //funzione perché deve essere valutata ogni secondo?
         if(btn.GetComponent<Image>().color == Color.red)
             btn.GetComponent<Image>().color = Color.white;
     }

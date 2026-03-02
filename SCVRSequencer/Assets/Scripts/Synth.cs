@@ -1,28 +1,23 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
 
 public class Synth
 {
-    public string symbol;
-    //public List<int> sequencer; 
-    public List<List<int>> sequencer;
-  //  public int[][] midiNotes;
-    //public string[] controlli;
-    public Dictionary<string, string> controlli = new Dictionary<string, string>(); //dizionario con coppie controllo - descrizione
-    public bool sequence;
-    public bool isPlayable;
-    public bool isPlaying;
-    public bool isPaused;
-    public bool hasKeys;
-    public bool isSampled;
-    public static Dictionary <string, Synth> synthList = new Dictionary<string, Synth>(); //dizionario con tutti i nomi dei synth e l'oggetto corrispondente
+    public string symbol {get; private set;}
+    public List<List<int>> sequencer {get; private set;}
+    public Dictionary<string, string> controlli {get; private set;}//= new Dictionary<string, string>(); //dict<nomeKr, descKr>
+    public bool sequence {get; private set;}
+    public bool isPlayable {get; private set;}
+    public bool isPlaying {get; set;}
+    public bool isPaused {get; set;}
+    public bool hasKeys {get; private set;}
+    public bool isSampled {get; private set;}
+    public static Dictionary <string, Synth> synthList {get; private set;}//= new Dictionary<string, Synth>(); //dict<nomeSynth, oggSynth> 
 
     //costruttore per solo sequencer (controlli = Null)
     public Synth(string symbol){
         this.symbol = symbol;
-        //this.sequencer = new List<int>() {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        
         this.sequencer = new List<List<int>>() {Enumerable.Repeat(0, 16).ToList()};
         this.sequence = true;
         this.isPlayable = false;
@@ -30,13 +25,12 @@ public class Synth
         synthList.Add(this.symbol, this);
     }
 
-    //costruttore per synth kr + seq (anche solo kr)
-    public Synth(string symbol, Dictionary<string, string> controlli, bool sequence, bool isPlayable, bool hasKeys, bool isSampled){ //prima era string[] controlli
+    //costruttore kr + seq (anche solo kr)
+    public Synth(string symbol, Dictionary<string, string> controlli, bool sequence, bool isPlayable, bool hasKeys, bool isSampled){
         this.symbol = symbol;
         this.controlli = controlli;
         if (sequence == true) //altrimenti è Null
         {
-            //this.sequencer = new List<int>() {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
             this.sequencer = new List<List<int>>() {Enumerable.Repeat(0, 16).ToList()};
             this.sequence = true;
         }
@@ -45,9 +39,6 @@ public class Synth
         this.isPaused = false;
         this.hasKeys = hasKeys;
         this.isSampled = isSampled;
-      /*  this.midiNotes = new int[8][];
-        for(int i = 0; i<8; i++)
-            this.midiNotes[i] = new int[] {0,0,0,0,0,0,0,0,0,0,0,0};*/
         synthList.Add(this.symbol, this);
     }
 

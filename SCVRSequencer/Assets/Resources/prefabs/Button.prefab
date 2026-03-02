@@ -541,7 +541,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf9e3c9757a686458aba0c3b0171a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testoImmagine: {fileID: 0}
+  TestoImmagineEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   tastiera: {fileID: 0}
   hoverOnBtn:
     m_PersistentCalls:
@@ -552,36 +566,6 @@ MonoBehaviour:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ObserverProgrammato, Assembly-CSharp
         m_MethodName: checkProgrammato
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onPress:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4178481497262888128}
-        m_TargetAssemblyTypeName: ButtonFunc, Assembly-CSharp
-        m_MethodName: onpressfunc
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onRelease:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4178481497262888128}
-        m_TargetAssemblyTypeName: ButtonFunc, Assembly-CSharp
-        m_MethodName: onreleasefunc
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

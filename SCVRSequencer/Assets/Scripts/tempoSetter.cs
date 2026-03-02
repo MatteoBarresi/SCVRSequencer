@@ -9,7 +9,6 @@ public class tempoSetter : MonoBehaviour
     
     public void setTempo(){
         //scsend tipo (address, value)
-        //GameManager.instance.SCsend("/tempo", gameObject.GetComponent<Slider>().value);
         var message = new OSCMessage("/tempo"); 
         message.AddValue(OSCValue.Float(gameObject.GetComponent<Slider>().value));
         GameManager.instance.transmitter.Send(message);

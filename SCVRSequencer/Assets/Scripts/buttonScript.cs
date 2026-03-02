@@ -13,11 +13,7 @@ public class buttonScript : MonoBehaviour
     {
         buttonText = GetComponentInChildren<TextMeshProUGUI>();
         if(buttonText.text.Length == 1)
-            assegnaNome();
-    }
-
-    public void assegnaNome(){
-        buttonText.text = gameObject.name;
+            buttonText.text = gameObject.name; //assegnaNome
     }
 
 }

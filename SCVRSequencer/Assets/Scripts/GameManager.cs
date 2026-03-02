@@ -41,9 +41,6 @@ public class GameManager : MonoBehaviour
     int currentBeat;
     [HideInInspector] public Dictionary<GameObject, Vector3> grandezze;
 
-
-//    List<Coroutine> CR = new List<Coroutine>();
-
     void Awake()
     {
         //no DontDestroyOnLoad perché dovrei fare un FindObjectWithTag per ogni oggetto (visto che sono in una scena diversa)
@@ -186,7 +183,7 @@ public class GameManager : MonoBehaviour
         receiver.Bind("/beat", (OSCMessage message)=> {
             int beat = (int)message.Values[0].FloatValue;
             currentBeat = beat-1;
-
+            //invoke unityEvent testoIniziale.setString()
             gestioneLedSequencer(beat); //non faccio -1 perché i bottoni partono da 1
 
         });
@@ -287,7 +284,7 @@ public class GameManager : MonoBehaviour
                             message.AddValue(OSCValue.Int(nota));
                         //CR.Add(StartCoroutine(MandaInizio(message))); 
                         transmitter.Send(message);
-                    }else btn.GetComponentInChildren<ButtonFunc>().SCsendMsg(synth.symbol, "rest");
+                    }else SCsendString(synth.symbol, "rest");//btn.GetComponentInChildren<ButtonFunc>().SCsendMsg(synth.symbol, "rest");
                 }
             }else if(synth.sequence) //solo sequencer
                 SCsendSequence(synth.symbol);
@@ -317,7 +314,7 @@ public class GameManager : MonoBehaviour
                         foreach(int nota in btn.GetComponentInChildren<ButtonFunc>().getChord(synth.symbol))
                             message.AddValue(OSCValue.Int(nota));
                         StartCoroutine(MandaInizio(message)); 
-                    }else btn.GetComponentInChildren<ButtonFunc>().SCsendMsg(synth.symbol, "rest");
+                    }else SCsendString(synth.symbol, "rest");//btn.GetComponentInChildren<ButtonFunc>().SCsendMsg(synth.symbol, "rest");
                 }
 
             }else if(synth.sequence){
@@ -354,7 +351,7 @@ public class GameManager : MonoBehaviour
         //var message = new OSCMessage(synthName);
         editModeEsciSwitch();
         if(Synth.synthList[synthName].sequence){ //ha un sequencer
-            SCsendString(synthName, "free");
+            SCsendString(synthName, "free");//SCsendString(synthName, "free");
 
             if(delete){
                 resetKeys();

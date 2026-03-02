@@ -1,47 +1,22 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using extOSC;
 public class testoIniziale : MonoBehaviour
 {
     //usato in testoSeq per settare i valori di ogni sequencer
-
-    private int currentBeat; //punto in cui siamo in questa battuta
     
     void Start()
     {
-        //listen();
         GameManager.instance.listen();
         setString();
     }
     void Update(){
+        //gestibile con eventi in play/stop (UI) e buttonfunc
         setString();
     }
 
-    /*public void listen(){
-        GameManager.instance.receiver.Bind("/beat", (OSCMessage message)=> {
-            int beat = (int)message.Values[0].FloatValue;
-            currentBeat = beat-1;
-
-            gestioneLedSequencer(beat); //non faccio -1 perché i bottoni partono da 1
-
-        });
-    }
-
-    void gestioneLedSequencer(int beat){
-        //parte che gestisce i colori
-        foreach(Transform btn in GameManager.instance.sequencer.transform){
-            if (int.Parse(btn.name) == beat){
-                btn.GetChild(2).GetComponent<MeshRenderer>().material = GameManager.instance.coloreBeat;
-            }else 
-                btn.GetChild(2).GetComponent<MeshRenderer>().material = GameManager.instance.coloreBase;
-        }
-    }*/
-
-
-    //sequencer[UIGeneral.getBattuta()]
-    public void setString(){
+   
+    public void setString(){ //play(all)/stop(all); cambio battuta; premo sequencer; cambia beat (clock SC)
         gameObject.GetComponent<TextMeshProUGUI>().text = "";
         int counter = 0;
         foreach(KeyValuePair<string, Synth> item in Synth.synthList){

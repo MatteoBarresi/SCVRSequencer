@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class CreaSynth : MonoBehaviour
 {
-    public GameObject sequencerButton;
-    public GameObject keyboard;
-
-    // Start is called before the first frame update
+    
     void Awake()
     {
         string panDesc = "posizione della sorgente sonora in stereo";
@@ -92,23 +89,5 @@ public class CreaSynth : MonoBehaviour
         );
         
         new Synth("/piano", new Dictionary<string,string>(), false, false, true, false);
-  /*      
-        new Synth("/kick", new string[] {"amp", "rate", "pan"}, true, true, false);
-        new Synth("/hat", new string[] {"amp", "rate", "pan"}, true, true, false);
-        new Synth("/snare", new string[] {"amp", "rate", "pan"}, true, true, false);
-        new Synth("/clap", new string[] {"amp", "rate", "pan"}, true, true, false);
-
-        new Synth("/pads", new string[] {"detune", "cutoff", "sustain", "level", "rel", "amp", "pan"}, true, true, true);
-        new Synth("/bass", new string[] {"width", "sweepDur", "sustain","level", "rel", "amp", "pan"}, true, true, true);
-        new Synth("/theremin", new string[] {"carFreq", "modAmp", "amp"}, false, true, false);
-        new Synth("/voice", new string[] {"trigFreq", "overlap", "rate", "rFreq", "rAmp", "pos", "diffusion", "panFreq","amp"}, false, true, false);
-        new Synth("/piano", new string[] {}, false, false, true);
-*/        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

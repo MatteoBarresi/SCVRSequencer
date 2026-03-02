@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObserverProgrammato : MonoBehaviour
@@ -17,7 +15,7 @@ public class ObserverProgrammato : MonoBehaviour
      
         foreach(Synth synth in Synth.synthList.Values){
             if(synth.sequence){
-                //Debug.Log(synth.symbol);
+                
                 foreach(int value in synth.sequencer[UIGeneral.getBattuta()]){
                     if(value == 1){
                         programmato = true;
@@ -30,6 +28,5 @@ public class ObserverProgrammato : MonoBehaviour
             gameObject.SetActive(true);
         else 
             gameObject.SetActive(false);
-        //Debug.Log("programmato " + programmato);
     }    
 }

@@ -1,30 +1,20 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using extOSC;
-
 using UnityEngine.UI;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using System.Threading.Tasks;
 public class BeatManager : MonoBehaviour
 {
     
     public static int Battute {get; private set;} = 1;
     [SerializeField] 
-    private UnityEvent aggiornaNumeroBattutaVisual; //TestoBattutaAttuale.aggiornaNumeroBattuta
-    
-    void Start()
-    {
-        Debug.Log($"beatmanager battute vale {Battute}");
-    }
+    private UnityEvent<int, int> aggiornaNumeroBattutaVisual; //TestoBattutaAttuale.aggiornaNumeroBattuta
 
     public void aggiungiBattuta(){ //legato a addBtn
         foreach(Synth synth in Synth.synthList.Values){
-            //Debug.Log(synth.symbol);
+            
             if(synth.sequence){
                 synth.aggiungiBattuta(UIGeneral.getBattuta());
-                Debug.Log(synth.symbol + ": numero di battute = " + synth.sequencer.Count);
+                //Debug.Log(synth.symbol + ": numero di battute = " + synth.sequencer.Count);
                 if(synth.hasKeys){//pads e bass - allarga chords
                     foreach(Transform btn in GameManager.instance.sequencer.transform){
                         btn.GetComponentInChildren<ButtonFunc>().AllargaChords(synth.symbol);
@@ -33,8 +23,8 @@ public class BeatManager : MonoBehaviour
             }
         }
         Battute ++;
-        Debug.Log($"totale battute = {Battute}");
-        aggiornaNumeroBattutaVisual.Invoke(); 
+        //Debug.Log($"totale battute = {Battute}");
+        aggiornaNumeroBattutaVisual.Invoke(UIGeneral.getBattuta() + 1, Battute);  
         gestioneBottoni();
     }
 
@@ -43,7 +33,7 @@ public class BeatManager : MonoBehaviour
             
             if(synth.sequence){
                 synth.eliminaBattuta(UIGeneral.getBattuta());
-                Debug.Log(synth.symbol + ": numero di battute = " + synth.sequencer.Count);
+               // Debug.Log(synth.symbol + ": numero di battute = " + synth.sequencer.Count);
                 if(synth.hasKeys){//pads e bass - elimina chords
                     foreach(Transform btn in GameManager.instance.sequencer.transform){
                         btn.GetComponentInChildren<ButtonFunc>().EliminaChords(synth.symbol);
@@ -52,12 +42,12 @@ public class BeatManager : MonoBehaviour
             }
         }
         Battute --;
-        Debug.Log($"totale battute = {Battute}");
+        //Debug.Log($"totale battute = {Battute}");
         gestioneBottoni();
         //solo per mandare nuovamente sequencerz
         cambiaBattuta(UIGeneral.getBattuta() > 0 ? -1: 0);
 
-        aggiornaNumeroBattutaVisual.Invoke();
+        aggiornaNumeroBattutaVisual.Invoke(UIGeneral.getBattuta() + 1, Battute);
     }
     
 
@@ -73,8 +63,8 @@ public class BeatManager : MonoBehaviour
                 GameManager.instance.SequencerButtons(); //non si vede il sequencer in questo caso, però dovrebbe far funzionare altro (testoIniziale.setString)
 
             }
-            aggiornaNumeroBattutaVisual.Invoke(); 
-            Debug.Log("siamo alla battuta " + UIGeneral.getBattuta());
+            aggiornaNumeroBattutaVisual.Invoke(UIGeneral.getBattuta() + 1, Battute); 
+            //Debug.Log("siamo alla battuta " + UIGeneral.getBattuta());
 
             
             foreach(Synth synth in Synth.synthList.Values)
@@ -102,61 +92,13 @@ public class BeatManager : MonoBehaviour
             gestioneBottoni();
             gestioneTastiUI(false);
             GameManager.instance.SequencerButtons();
-
         }
 
-        aggiornaNumeroBattutaVisual.Invoke();
-        Debug.Log("siamo alla battuta " + UIGeneral.getBattuta());
-
-
+        aggiornaNumeroBattutaVisual.Invoke(UIGeneral.getBattuta() + 1, Battute);
+        //Debug.Log("siamo alla battuta " + UIGeneral.getBattuta());
 
         foreach(Synth synth in Synth.synthList.Values)
             GameManager.instance.SCsendBoth(synth);
-        
-
-        //aspetta
-
-  
-        //manda a SC messaggio con nuovi array (di tutti gli strumenti con sequencer) 
-        /*foreach(Synth synth in Synth.synthList.Values){
-            if(synth.hasKeys && synth.sequence){ //bass e pads 
-                //per ogni bottone programmato, sendNotes (accordo) per bass e pads
-                //altrimenti scsendMsg(selectedSynth, "rest")
-
-
-                foreach(Transform btn in GameManager.instance.sequencer.transform){
-                    
-                    //se il chord di questo bottone non è vuoto, manda note
-                    //per ogni nota in questo bottone (chord)
-                    if(btn.GetComponentInChildren<ButtonFunc>().programmedChord(synth.symbol)){//non è programmato a vuoto
-                        
-                        var message = new OSCMessage(synth.symbol);
-                        message.AddValue(OSCValue.Int(btn.GetComponentInChildren<ButtonFunc>().getIndex()));
-                        //se ha accordi, mandali
-                        foreach(int nota in btn.GetComponentInChildren<ButtonFunc>().getChord(synth.symbol))
-                            message.AddValue(OSCValue.Int(nota));
-                        StartCoroutine(MandaInizio(message)); 
-                    }else {
-                        btn.GetComponentInChildren<ButtonFunc>().SCsendMsg(synth.symbol, "rest");
-                        
-                    }
-                }
-                
-
-            }else if(synth.sequence){ //solo sequencer
-                GameManager.instance.SCsendSequence(synth.symbol);
-            }
-                
-        }*/
-        
-        //GameManager.instance.SCsendString("/tempo", "real");   
-        /*
-        //mandava la nuova sequenza a tempoosc ma inutile
-        var m = new OSCMessage("/tempo");
-        //m.AddValue(OSCValue.String("real"));
-        foreach(int item in Synth.synthList["/kick"].sequencer[UIGeneral.getBattuta()])
-            m.AddValue(OSCValue.Int(item));
-        GameManager.instance.transmitter.Send(m);*/
     }
 
     public void gestioneBottoni(){ //cambio scale perché mi servono attivi per una coroutine
@@ -169,7 +111,8 @@ public class BeatManager : MonoBehaviour
             GameManager.instance.forwardBtn.transform.parent.gameObject.transform.localScale = new Vector3(0,0,0);
 
         }else{
-            //check su un synth a caso - se ha più di una battuta -        //Battute non andava perché veniva aggiornato dopo forse (all'aggiunta/rimozione)
+            //check su un synth a caso - se ha più di una battuta 
+            //Battute non andava perché veniva aggiornato dopo forse (all'aggiunta/rimozione)
             //int totaleBattute = Synth.synthList[UIGeneral.getSelection()].sequencer.Count; 
             
             GameManager.instance.addBtn.transform.parent.gameObject.SetActive(true);
@@ -211,12 +154,6 @@ public class BeatManager : MonoBehaviour
             
             gestioneTastiUI(true);
         }
-
-
     }
-
-
-    
-
 
 }
